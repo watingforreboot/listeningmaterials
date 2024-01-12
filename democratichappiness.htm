@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<audio id="audioPlayer" controls style="width: 100%;">
+  <source src="democratichappiness.mp3" type="audio/mpeg">
+  Your browser does not support the audio element.
+</audio>
+
+<button onclick="rewindAudio(3)" type="button" style="height: 90px; font-size: 50px; margin-top: 120px; touch-action: manipulation;">Rewind 3 seconds</button>
+
+<script>
+function rewindAudio(seconds) {
+  var audio = document.getElementById("audioPlayer");
+  audio.currentTime -= seconds;
+}
+</script>
+
+</body>
+</html>
