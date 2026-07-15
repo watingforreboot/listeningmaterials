@@ -7,11 +7,26 @@
   Your browser does not support the audio element.
 </audio>
 
-<button onclick="rewindAudio(3)" type="button" style="height: 90px; font-size: 50px; margin-top: 120px; touch-action: manipulation;">Rewind 3 seconds</button>
+<button id="playPauseBtn" onclick="togglePlay()" type="button" style="display: block; height: 90px; font-size: 50px; margin-top: 40px; touch-action: manipulation;">Play</button>
+
+<button onclick="rewindAudio(3)" type="button" style="height: 90px; font-size: 50px; margin-top: 30px; touch-action: manipulation;">Rewind 3 seconds</button>
 
 <script>
+var audio = document.getElementById("audioPlayer");
+var playPauseBtn = document.getElementById("playPauseBtn");
+
+// 再生・一時停止を切り替える関数
+function togglePlay() {
+  if (audio.paused) {
+    audio.play();
+    playPauseBtn.textContent = "Pause";
+  } else {
+    audio.pause();
+    playPauseBtn.textContent = "Play";
+  }
+}
+
 function rewindAudio(seconds) {
-  var audio = document.getElementById("audioPlayer");
   audio.currentTime -= seconds;
 }
 </script>
