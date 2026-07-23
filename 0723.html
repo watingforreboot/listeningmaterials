@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<audio id="audioPlayer" controls style="width: 100%;">
+  <source src="0723.mp3" type="audio/mpeg">
+  Your browser does not support the audio element.
+</audio>
+
+<button id="playPauseBtn" onclick="togglePlay()" type="button" style="display: block; width: 80%; height: 180px; font-size: 50px; margin-top: 60px; touch-action: manipulation;">Play</button>
+
+<button onclick="rewindAudio(3)" type="button" style="display: block; width: 80%; height: 180px; font-size: 50px; margin-top: 100px; touch-action: manipulation;">Rewind 3 seconds</button>
+
+<script>
+var audio = document.getElementById("audioPlayer");
+var playPauseBtn = document.getElementById("playPauseBtn");
+
+// 再生・一時停止を切り替える関数
+function togglePlay() {
+  if (audio.paused) {
+    audio.play();
+    playPauseBtn.textContent = "Pause";
+  } else {
+    audio.pause();
+    playPauseBtn.textContent = "Play";
+  }
+}
+
+function rewindAudio(seconds) {
+  audio.currentTime -= seconds;
+}
+</script>
+
+</body>
+</html>
