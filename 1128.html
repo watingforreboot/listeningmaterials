@@ -1,14 +1,78 @@
-<p>
-英文を1行に1文ずつ貼り付けてください。
-</p>
 
-<textarea id="sentenceInput" placeholder="英文をここに貼り付けてください"></textarea>
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
-<button onclick="createAnswers()">
-  Create Answers
+<title>English Listening</title>
+
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+  }
+
+  button {
+    display: block;
+    width: 80%;
+    min-height: 120px;
+    font-size: 35px;
+    margin-top: 40px;
+    touch-action: manipulation;
+  }
+
+  details {
+    margin-top: 30px;
+    font-size: 30px;
+  }
+
+  summary {
+    cursor: pointer;
+    padding: 25px;
+    background-color: #eeeeee;
+    color: black;
+    border-radius: 10px;
+    touch-action: manipulation;
+  }
+
+  .answer {
+    padding: 25px;
+    background-color: #f5f5f5;
+    color: black;
+    border-radius: 10px;
+    margin-top: 10px;
+    line-height: 1.6;
+  }
+</style>
+
+</head>
+
+<body>
+
+<!-- 音声プレイヤー -->
+
+<audio id="audioPlayer" controls style="width: 100%;">
+  <source src="1028.mp3" type="audio/mpeg">
+  Your browser does not support the audio element.
+</audio>
+
+<!-- 再生・一時停止ボタン -->
+
+<button id="playPauseBtn" onclick="togglePlay()" type="button">
+  Play
 </button>
 
-<div id="answerArea"></div>
+<!-- 3秒巻き戻しボタン -->
+
+<button onclick="rewindAudio(3)" type="button">
+  Rewind 3 seconds
+</button>
+
+
+<!-- ===================================== -->
+<!-- ★★★ 英文貼り付けエリア ★★★ -->
+<!-- ===================================== -->
 
 <div id="sentenceList" style="display: none;">
 
@@ -25,29 +89,55 @@ There were more than a hundred dogs there.
 
 </div>
 
+<!-- ===================================== -->
+<!-- ★★★ 英文貼り付けエリアここまで ★★★ -->
+<!-- ===================================== -->
+
+
+<!-- 回答表示エリア -->
+
+<div id="answerArea"></div>
+
+
 <script>
+
+// 音声プレイヤー
 var audio = document.getElementById("audioPlayer");
 var playPauseBtn = document.getElementById("playPauseBtn");
 
+
 // 再生・一時停止
 function togglePlay() {
+
   if (audio.paused) {
+
     audio.play();
     playPauseBtn.textContent = "Pause";
+
   } else {
+
     audio.pause();
     playPauseBtn.textContent = "Play";
+
   }
+
 }
+
 
 // 3秒巻き戻し
 function rewindAudio(seconds) {
-  audio.currentTime = Math.max(0, audio.currentTime - seconds);
+
+  audio.currentTime = Math.max(
+    0,
+    audio.currentTime - seconds
+  );
+
 }
 
-// 回答を作成
 
+// 回答を自動生成
 function createAnswers() {
+
   var input = document.getElementById("sentenceList").innerText;
 
   var sentences = input
@@ -61,9 +151,13 @@ function createAnswers() {
 
   var answerArea = document.getElementById("answerArea");
 
+  // 回答エリアを初期化
   answerArea.replaceChildren();
 
+
+  // 英文ごとに回答を作成
   sentences.forEach(function(sentence, index) {
+
     var details = document.createElement("details");
 
     var summary = document.createElement("summary");
@@ -76,12 +170,19 @@ function createAnswers() {
     text.textContent = sentence;
 
     answer.appendChild(text);
+
     details.appendChild(summary);
     details.appendChild(answer);
 
     answerArea.appendChild(details);
+
   });
+
 }
+
+
+// HTMLを開いたときに回答を自動生成
+createAnswers();
 
 </script>
 
