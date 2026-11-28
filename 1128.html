@@ -94,7 +94,7 @@ There were more than a hundred dogs there.
 
 <button
   id="answerToggleBtn"
-  onclick="toggleAllAnswers()"
+  onclick="showAllAnswers()"
   type="button"
 >
   Show All Answers
@@ -177,28 +177,20 @@ function createAnswers() {
 }
 
 
-// 全回答の表示・非表示
-
-var answersVisible = false;
-
-// 全回答の表示・非表示
-function toggleAllAnswers() {
+function showAllAnswers() {
 
   var answers = document.querySelectorAll(".answer");
   var button = document.getElementById("answerToggleBtn");
 
-  answersVisible = !answersVisible;
-
+  // 全回答を表示
   answers.forEach(function(answer) {
-    answer.style.display = answersVisible ? "block" : "none";
+    answer.style.display = "block";
   });
 
-  button.textContent = answersVisible
-    ? "Hide All Answers"
-    : "Show All Answers";
+  // ボタンを消す
+  button.style.display = "none";
 
 }
-
 
 
 // HTMLを開いたときに回答を自動生成
