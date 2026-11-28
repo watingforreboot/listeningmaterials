@@ -22,27 +22,19 @@
     touch-action: manipulation;
   }
 
-  details {
-    margin-top: 30px;
-    font-size: 30px;
-  }
-
-  summary {
-    cursor: pointer;
-    padding: 25px;
-    background-color: #eeeeee;
-    color: black;
-    border-radius: 10px;
-    touch-action: manipulation;
-  }
-
   .answer {
-    padding: 25px;
+    display: none;
+    padding: 20px;
     background-color: #f5f5f5;
     color: black;
     border-radius: 10px;
-    margin-top: 10px;
+    margin-top: 15px;
+    font-size: 25px;
     line-height: 1.6;
+  }
+
+  #answerArea {
+    margin-top: 40px;
   }
 </style>
 
@@ -57,13 +49,13 @@
   Your browser does not support the audio element.
 </audio>
 
-<!-- 再生・一時停止ボタン -->
+<!-- 再生・一時停止 -->
 
 <button id="playPauseBtn" onclick="togglePlay()" type="button">
   Play
 </button>
 
-<!-- 3秒巻き戻しボタン -->
+<!-- 3秒巻き戻し -->
 
 <button onclick="rewindAudio(3)" type="button">
   Rewind 3 seconds
@@ -92,6 +84,17 @@ There were more than a hundred dogs there.
 <!-- ===================================== -->
 <!-- ★★★ 英文貼り付けエリアここまで ★★★ -->
 <!-- ===================================== -->
+
+
+<!-- 全回答表示・非表示ボタン -->
+
+<button
+  id="answerToggleBtn"
+  onclick="toggleAllAnswers()"
+  type="button"
+>
+  Show All Answers
+</button>
 
 
 <!-- 回答表示エリア -->
@@ -151,32 +154,47 @@ function createAnswers() {
 
   var answerArea = document.getElementById("answerArea");
 
-  // 回答エリアを初期化
   answerArea.replaceChildren();
 
-
-  // 英文ごとに回答を作成
   sentences.forEach(function(sentence, index) {
-
-    var details = document.createElement("details");
-
-    var summary = document.createElement("summary");
-    summary.textContent = "Answer " + (index + 1);
 
     var answer = document.createElement("div");
     answer.className = "answer";
 
+    var number = document.createElement("strong");
+    number.textContent = "Answer " + (index + 1);
+
     var text = document.createElement("p");
     text.textContent = sentence;
 
+    answer.appendChild(number);
     answer.appendChild(text);
 
-    details.appendChild(summary);
-    details.appendChild(answer);
-
-    answerArea.appendChild(details);
+    answerArea.appendChild(answer);
 
   });
+
+}
+
+
+// 全回答の表示・非表示
+function toggleAllAnswers() {
+
+  var answers = document.querySelectorAll(".answer");
+  var button = document.getElementById("answerToggleBtn");
+
+  var isHidden = answers.length > 0 &&
+    answers[0].style.display === "none";
+
+  answers.forEach(function(answer) {
+
+    answer.style.display = isHidden ? "block" : "none";
+
+  });
+
+  button.textContent = isHidden
+    ? "Hide All Answers"
+    : "Show All Answers";
 
 }
 
