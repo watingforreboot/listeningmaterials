@@ -1,0 +1,89 @@
+<p>
+英文を1行に1文ずつ貼り付けてください。
+</p>
+
+<textarea id="sentenceInput" placeholder="英文をここに貼り付けてください"></textarea>
+
+<button onclick="createAnswers()">
+  Create Answers
+</button>
+
+<div id="answerArea"></div>
+
+<div id="sentenceList" style="display: none;">
+
+I want you to buy this pen.
+He told her that she should study harder.
+He told her to study harder.
+The teacher asked them to stand up quickly.
+She has been running for twenty minutes.
+His life in Australia was full of wonderful experiences.
+He began working as an English teacher.
+He was surprised to hear that.
+He did not know what to say at the moment.
+There were more than a hundred dogs there.
+
+</div>
+
+<script>
+var audio = document.getElementById("audioPlayer");
+var playPauseBtn = document.getElementById("playPauseBtn");
+
+// 再生・一時停止
+function togglePlay() {
+  if (audio.paused) {
+    audio.play();
+    playPauseBtn.textContent = "Pause";
+  } else {
+    audio.pause();
+    playPauseBtn.textContent = "Play";
+  }
+}
+
+// 3秒巻き戻し
+function rewindAudio(seconds) {
+  audio.currentTime = Math.max(0, audio.currentTime - seconds);
+}
+
+// 回答を作成
+
+function createAnswers() {
+  var input = document.getElementById("sentenceList").innerText;
+
+  var sentences = input
+    .split(/\r?\n/)
+    .map(function(sentence) {
+      return sentence.trim();
+    })
+    .filter(function(sentence) {
+      return sentence.length > 0;
+    });
+
+  var answerArea = document.getElementById("answerArea");
+
+  answerArea.replaceChildren();
+
+  sentences.forEach(function(sentence, index) {
+    var details = document.createElement("details");
+
+    var summary = document.createElement("summary");
+    summary.textContent = "Answer " + (index + 1);
+
+    var answer = document.createElement("div");
+    answer.className = "answer";
+
+    var text = document.createElement("p");
+    text.textContent = sentence;
+
+    answer.appendChild(text);
+    details.appendChild(summary);
+    details.appendChild(answer);
+
+    answerArea.appendChild(details);
+  });
+}
+
+</script>
+
+</body>
+</html>
