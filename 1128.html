@@ -178,25 +178,27 @@ function createAnswers() {
 
 
 // 全回答の表示・非表示
+
+var answersVisible = false;
+
+// 全回答の表示・非表示
 function toggleAllAnswers() {
 
   var answers = document.querySelectorAll(".answer");
   var button = document.getElementById("answerToggleBtn");
 
-  var isHidden = answers.length > 0 &&
-    answers[0].style.display === "none";
+  answersVisible = !answersVisible;
 
   answers.forEach(function(answer) {
-
-    answer.style.display = isHidden ? "block" : "none";
-
+    answer.style.display = answersVisible ? "block" : "none";
   });
 
-  button.textContent = isHidden
+  button.textContent = answersVisible
     ? "Hide All Answers"
     : "Show All Answers";
 
 }
+
 
 
 // HTMLを開いたときに回答を自動生成
